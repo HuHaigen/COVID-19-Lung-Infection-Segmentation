@@ -1,4 +1,4 @@
-dataset_path: data
+dataset_path: data/COVID19
 resample_num: 21
 
 # 每次训练几个病人

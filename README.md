@@ -44,12 +44,12 @@ finally run train.py, the model will saved in checkpoint folder.
 # Citation
 Please cite our paper if you find the work useful:
 
-@article{hu2022deep,
-author = {Haigen Hu and Leizhao Shen and Qiu Guan and Xiaoxin Li and Qianwei Zhou and Su Ruan},
-journal = {Pattern Recognition},
-title = {Deep co-supervision and attention fusion strategy for automatic COVID-19 lung infection segmentation on CT images},
-year = {2022},
-volume = {124},
-pages = {108452},
-doi = {https://doi.org/10.1016/j.patcog.2021.108452},
-}
+@article{hu2022deep,<br>
+    author = {Haigen Hu and Leizhao Shen and Qiu Guan and Xiaoxin Li and Qianwei Zhou and Su Ruan},<br>
+    journal = {Pattern Recognition},<br>
+    title = {Deep co-supervision and attention fusion strategy for automatic COVID-19 lung infection segmentation on CT images},<br>
+    year = {2022},<br>
+    volume = {124},<br>
+    pages = {108452},<br>
+    doi = {https://doi.org/10.1016/j.patcog.2021.108452},<br>
+}<br>

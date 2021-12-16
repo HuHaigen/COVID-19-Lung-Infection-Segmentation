@@ -7,39 +7,28 @@ Due to the irregular shapes,various sizes and indistinguishable boundaries betwe
 
 # Usage
 
-you can train your own dataset
-
-creat a new folder 'data' and 'checkpoint'，then the directory structure is as follows:
-
--checkpoint
-
--data
-
+you can train your own dataset <br>
+creat a new folder 'data' and 'checkpoint'，then the directory structure is as follows:<br>
+-checkpoint <br>
+-data <br>
+``` <br>
+-train   (train dataset)<br>
+    -image    (CT images)<br>
+    -mask     (GT images)<br>
+    -mask_    (EdgeEGT images)<br>
+-val        (validation dataset)<br>
+    -image    (CT images)<br>
+    -mask     (GT images)<br>
+    -mask_    (EdgeEGT images)<br>
 ```
--train   (train dataset)
-    -image    (CT images)
-    -mask     (GT images)
-    -mask_    (EdgeEGT images)
--val        (validation dataset)
-    -image    (CT images)
-    -mask     (GT images)
-    -mask_    (EdgeEGT images)
-```
-
-You can modify the parameter settings in /resources/train_config.yaml
-
--batch_size
-
--learning_rate
-
--weight_decay
-
--checkpoint_save_dir
-
--loss_function
-...
-
-finally run train.py, the model will saved in checkpoint folder.
+You can modify the parameter settings in /resources/train_config.yaml<br>
+-batch_size<br>
+-learning_rate<br>
+-weight_decay<br>
+-checkpoint_save_dir<br>
+-loss_function<br>
+...<br>
+finally run train.py, the model will saved in checkpoint folder.<br>
 
 # Citation
 Please cite our paper if you find the work useful:

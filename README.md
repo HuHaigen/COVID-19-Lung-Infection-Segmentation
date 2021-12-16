@@ -43,8 +43,6 @@ loss_function
 ```
 finally run `train.py`, the model will saved in `./checkpoints` folder.
 
-**[⬆ back to top](#0-preface)**
-
 ## 0. Preface
 
 - This repository provides code for "_**Deep co-supervision and attention fusion strategy for automatic COVID-19 lung infection segmentation on CT images**_". ([Pattern Recognition](https://www.sciencedirect.com/science/article/pii/S0031320321006282))
@@ -207,3 +205,5 @@ The authors would like to express their appreciation to the referees for their h
 
 ## 7. FAQ
 
+
+**[⬆ back to top](#0-preface)**

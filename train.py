@@ -111,9 +111,9 @@ def main():
                                                     log_after_iters=log_and_vaild,
                                                     logger=logger)
         else:
-            if os.path.exists("./checkpoint/logs/"):
-                shutil.rmtree("./checkpoint/logs/")
-            os.makedirs("./checkpoint/logs/")
+            if os.path.exists("./checkpoints/logs/"):
+                shutil.rmtree("./checkpoints/logs/")
+            os.makedirs("./checkpoints/logs/")
             logger.info("new train.")
             trainer = UNet3DTrainer(model, optimizer,
                                     loss_criterion,

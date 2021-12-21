@@ -2,6 +2,7 @@
 
 # Deep co-supervision and attention fusion strategy for automatic COVID-19 lung infection segmentation on CT images
 
+> **The Paper Links**: [Pattern Recognition](https://www.sciencedirect.com/science/article/pii/S0031320321006282), [Arxiv](https://arxiv.org/abs/2112.10368).   
 > **Authors:** [Haigen Hu](), [Leizhao Shen](), [Qiu Guan](), [Xiaoxin Li](), [Qianwei Zhou](), [Su Ruan]()
 
 ## Abstract
@@ -9,11 +10,35 @@ Due to the irregular shapes,various sizes and indistinguishable boundaries betwe
 
 ## Usage
 
-You can train your own dataset.
+You can build a runtime environment and prepare your dataset by following these steps：
+
+- **Dataset Preparation:**
+
+  Firstly, you should download the training/testing set ([COVID-19 - Medical segmentation_Link1](https://medicalsegmentation.com/covid19/), [COVID-19 CT Lung and Infection Segmentation Dataset | Zenodo_Link2](https://zenodo.org/record/3757476#.Xpz8OcgzZPY))
+
+  > [1] COVID-19 CT segmentation dataset, 2020, https://medicalsegmentation.com/covid19.  
+  > [2] COVID-19 CT segmentation dataset, 2020, https://gitee.com/junma11/COVID-19-CT-Seg-Benchmark.
+
+  and put it into `./data/` repository.
+
+- **Pretrained Model:**
+
+  There is no pretrained model used in our paper. If you want to use pretrained model, put them into `./data/pretrained_models/` repository.
+
+- **Configuring your environment (Prerequisites):**
+
+  Note that our model is only tested on Ubuntu OS 16.04 with the following environments (CUDA-10.2). 
+  It may work on other operating systems as well but we do not guarantee that it will.
+
+  + Creating a virtual environment in terminal: `conda create -n ResUNet python=3.7`, and then run `conda activate ResUNet`.
+  + Installing the pytorch environment: `conda install pytorch==1.7.0 torchvision==0.8.0 torchaudio==0.7.0 cudatoolkit=10.2 -c pytorch` 
+  + Installing necessary packages: `pip install -r requirements.txt`.
+
+  
 
 Create a new folder `data` and `checkpoints`，then the directory structure is as follows:
 
-```shell
+```
 ./COVID-19-Lung-Infection-Segentation
 ├── checkpoints
 ├── data
@@ -33,8 +58,10 @@ Create a new folder `data` and `checkpoints`，then the directory structure is a
 ├── resources
 └── trainer
 ```
+
 You can modify the parameter settings in `/resources/train_config.yaml`
-```yaml
+
+```
 batch_size
 learning_rate
 weight_decay
@@ -42,7 +69,10 @@ checkpoint_save_dir
 loss_function
 ...
 ```
+
 Finally, run `train.py`, the model will saved in `./checkpoints` folder.
+
+
 
 ## 0. Preface
 
@@ -59,10 +89,8 @@ Finally, run `train.py`, the model will saved in `./checkpoints` folder.
     + [0.1. Table of Content](#01-table-of-content)
   * [1. Introduction](#1-introduction)
     + [1.1. Task Descriptions](#11-task-descriptions)
+    + [1.2. Architecture](#12-architecture)
   * [2. Proposed Methods](#2-proposed-methods)
-    + [2.1. ESM (Edge supervised module)](#21-esm--edge-supervised-module-)
-    + [2.2. ASSM (Auxiliary semantic supervised module)](#22-assm--auxiliary-semantic-supervised-module-)
-    + [2.3. AFM (Attention fusion module)](#23-afm--attention-fusion-module-)
   * [3. Experiments](#3-experiments)
   * [4. Visualized Results](#4-visualized-results)
   * [5. Citation](#5-citation)
@@ -70,7 +98,6 @@ Finally, run `train.py`, the model will saved in `./checkpoints` folder.
   * [7. FAQ](#7-faq)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
 
 ## 1. Introduction
 
@@ -85,7 +112,7 @@ Finally, run `train.py`, the model will saved in `./checkpoints` folder.
 
 
 
-## 1.2. Architecture
+### 1.2. Architecture
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/HuHaigen/COVID-19-Lung-Infection-Segentation/main/resources/Fig2.png"></img>
@@ -98,49 +125,18 @@ where (1) **ESM** is used to further highlight the low-level features in the ini
 
 
 
-
 ## 2. Proposed Methods
 
-- **Preview:**
+Our proposed methods consist of three individual components under three different settings: 
 
-    Our proposed methods consist of three individual components under three different settings: 
+- ESM (Edge supervised module)
+- ASSM (Auxiliary semantic supervised module)
+- AFM (Attention fusion module)
 
-    - ESM (Edge supervised module)
-    
-    - ASSM (Auxiliary semantic supervised module)
-    
-    - AFM (Attention fusion module)
-   
-- **Dataset Preparation:**
+Please refer to the paper ([Link](https://arxiv.org/pdf/2112.10368.pdf)) for details.
 
-    Firstly, you should download the training/testing set ([COVID-19 - Medical segmentation_Link1](https://medicalsegmentation.com/covid19/), [COVID-19 CT Lung and Infection Segmentation Dataset | Zenodo_Link2](https://zenodo.org/record/3757476#.Xpz8OcgzZPY))
 
-    > [1] COVID-19 CT segmentation dataset, 2020, https://medicalsegmentation.com/covid19. 
-    > [2] COVID-19 CT segmentation dataset, 2020, https://gitee.com/junma11/COVID-19-CT-Seg-Benchmark.
-
-    and put it into `./data/` repository.
-
-- **Pretrained Model:**
-
-    There is no pretrained model used in our paper. If you want to use pretrained model, put them into `./data/pretrained_models/` repository.
-    
-- **Configuring your environment (Prerequisites):**
-
-    Note that Inf-Net series is only tested on Ubuntu OS 16.04 with the following environments (CUDA-10.2). 
-    It may work on other operating systems as well but we do not guarantee that it will.
-    
-    + Creating a virtual environment in terminal: `conda create -n InfNet python=3.7`.
-    + Installing the pytorch environment: `conda install pytorch==1.7.0 torchvision==0.8.0 torchaudio==0.7.0 cudatoolkit=10.2 -c pytorch` 
-    + Installing necessary packages: `pip install -r requirements.txt`.
-    
-
-### 2.1. ESM (Edge supervised module)
-
-### 2.2. ASSM (Auxiliary semantic supervised module)
-
-### 2.3. AFM (At tention fusion module)
-
-## 3. **Experiments**
+## 3. Experiments
 
 We have done a series of qualitative and quantitative experimental comparisons on our proposed method, please refer to the paper ([Link](https://arxiv.org/pdf/2112.10368.pdf)) for the specific experimental results.
 

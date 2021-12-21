@@ -1,4 +1,5 @@
 
+
 # Deep co-supervision and attention fusion strategy for automatic COVID-19 lung infection segmentation on CT images
 
 > **Authors:** [Haigen Hu](), [Leizhao Shen](), [Qiu Guan](), [Xiaoxin Li](), [Qianwei Zhou](), [Su Ruan]()
@@ -41,59 +42,21 @@ checkpoint_save_dir
 loss_function
 ...
 ```
-finally run `train.py`, the model will saved in `./checkpoints` folder.
+Finally, run `train.py`, the model will saved in `./checkpoints` folder.
 
 ## 0. Preface
 
-- This repository provides code for "_**Deep co-supervision and attention fusion strategy for automatic COVID-19 lung infection segmentation on CT images**_". ([Pattern Recognition](https://www.sciencedirect.com/science/article/pii/S0031320321006282))
+- This repository provides code for "_**Deep co-supervision and attention fusion strategy for automatic COVID-19 lung infection segmentation on CT images**_". ([Pattern Recognition](https://www.sciencedirect.com/science/article/pii/S0031320321006282), [Arxiv](https://arxiv.org/abs/2112.10368))
 
-- If you have any questions about our paper, feel free to contact us. And if you are using the methods proposed in this paper for your research, please cite this paper ([BibTeX](#8-citation)).
+- If you have any questions about our paper, feel free to contact us. And if you are using the methods proposed in this paper for your research, please cite this paper ([BibTeX](#5-citation)).
 
-<!-- 
-### 0.1. Table of Contents
-
-
-- [Inf-Net: Automatic COVID-19 Lung Infection Segmentation from CT Images](#inf-net--automatic-covid-19-lung-infection-segmentation-from-ct-scans)
-  * [0. Preface](#0-preface)
-    + [0.1. :fire: NEWS :fire:](#01--fire--news--fire-)
-    + [0.2. Table of Contents](#02-table-of-contents)
-  * [1. Introduction](#1-introduction)
-    + [1.1. Task Description](#11-task-description)
-  * [2. Proposed Methods](#2-proposed-methods)
-    + [2.1. Inf-Net](#21-inf-net)
-      - [2.1.1 Overview](#211-overview)
-      - [2.1.2. Usage](#212-usage)
-    + [2.2. Semi-Inf-Net](#22-semi-inf-net)
-      - [2.2.1. Overview](#221-overview)
-      - [2.2.2. Usage](#222-usage)
-    + [2.3. Semi-Inf-Net + Multi-class UNet](#23-semi-inf-net---multi-class-unet)
-      - [2.3.1. Overview](#231-overview)
-      - [2.3.2. Usage](#232-usage)
-  * [3. Evaluation Toolbox](#3-evaluation-toolbox)
-    + [3.1. Introduction](#31-introduction)
-    + [3.2. Usage](#32-usage)
-  * [4. COVID-SemiSeg Dataset](#4-covid-semiseg-dataset)
-    + [3.1. Training set](#31-training-set)
-    + [3.2. Testing set](#32-testing-set)
-  * [4. Results](#4-results)
-    + [4.1. Download link:](#41-download-link-)
-  * [5. Visualization Results:](#5-visualization-results-)
-  * [6. Paper list of COVID-19 related (Update continue)](#6-paper-list-of-covid-19-related--update-continue-)
-  * [7. Manuscript](#7-manuscript)
-  * [8. Citation](#8-citation)
-  * [9. LICENSE](#9-license)
-  * [10. Acknowledgements](#10-acknowledgements)
-  * [11. TODO LIST](#11-todo-list)
-  * [12. FAQ](#12-faq)
-
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
--->
+### 0.1. Table of Content
 
 - [Deep co-supervision and attention fusion strategy for automatic COVID-19 lung infection segmentation on CT images](#deep-co-supervision-and-attention-fusion-strategy-for-automatic-covid-19-lung-infection-segmentation-on-ct-images)
   * [Abstract](#abstract)
+  * [Usage](#usage)
   * [0. Preface](#0-preface)
-    + [0.1. Table of Contents](#01-table-of-contents)
+    + [0.1. Table of Content](#01-table-of-content)
   * [1. Introduction](#1-introduction)
     + [1.1. Task Descriptions](#11-task-descriptions)
   * [2. Proposed Methods](#2-proposed-methods)
@@ -101,11 +64,10 @@ finally run `train.py`, the model will saved in `./checkpoints` folder.
     + [2.2. ASSM (Auxiliary semantic supervised module)](#22-assm--auxiliary-semantic-supervised-module-)
     + [2.3. AFM (Attention fusion module)](#23-afm--attention-fusion-module-)
   * [3. Experiments](#3-experiments)
-  * [4. Visualized Results:](#4-visualized-results-)
+  * [4. Visualized Results](#4-visualized-results)
   * [5. Citation](#5-citation)
   * [6. Acknowledgements](#6-acknowledgements)
   * [7. FAQ](#7-faq)
-  * [Usage](#usage)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
@@ -115,11 +77,27 @@ finally run `train.py`, the model will saved in `./checkpoints` folder.
 ### 1.1. Task Descriptions
 
 <p align="center">
-    <img src="http://dpfan.net/wp-content/uploads/COVID19-Infection-1.png"/> <br />
+    <img src="https://raw.githubusercontent.com/HuHaigen/COVID-19-Lung-Infection-Segentation/main/resources/Fig1.png"/>
     <em>
-      Fig. 1. An illustration of challenging task for identification the infected lesions (contours in red) of COVID-19 on CT images. (a) The infections have various scales and shapes. (b) There is no obvious difference between normal and infected tissues. (For interpretation of the references to color in this figure legend, the reader is referred to the web version of this article.)
+      Fig. 1. An illustration of challenging task for identification the infected lesions (contours in red) of COVID-19 on CT images. (a) The infections have various scales and shapes. (b) There is no obvious difference between normal and infected tissues. (For interpretation of the references to color in this figure legend, the reader is referred to the web version of this article.)
     </em>
 </p>
+
+
+
+## 1.2. Architecture
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/HuHaigen/COVID-19-Lung-Infection-Segentation/main/resources/Fig2.png"></img>
+	<em>
+	Fig. 2. An Illustration of the overall network architecture. The proposed architecture comprises of ASSM, ESM and AFM based on encoder-decoder structure.
+	</em>
+</p>
+
+where (1) **ESM** is used to further highlight the low-level features in the initial shallow layers of the encoder, and it can capture more detailed information like object boundaries. (2) While **ASSM** is employed to strengthen high-level semantic information by integrating object mask supervised information into the later stages of the encoder. (3) Finally, **AFM** is utilized to fuse multi-scale feature maps of different levels in the decoder.
+
+
+
 
 ## 2. Proposed Methods
 
@@ -137,8 +115,8 @@ finally run `train.py`, the model will saved in `./checkpoints` folder.
 
     Firstly, you should download the training/testing set ([COVID-19 - Medical segmentation_Link1](https://medicalsegmentation.com/covid19/), [COVID-19 CT Lung and Infection Segmentation Dataset | Zenodo_Link2](https://zenodo.org/record/3757476#.Xpz8OcgzZPY))
 
-    > [32] “COVID-19 CT segmentation dataset, 2020, https://medicalsegmentation.com/covid19/. 
-    > [33] “COVID-19 CT segmentation dataset, 2020, https://gitee.com/junma11/COVID-19-CT-Seg-Benchmark.
+    > [1] COVID-19 CT segmentation dataset, 2020, https://medicalsegmentation.com/covid19. 
+    > [2] COVID-19 CT segmentation dataset, 2020, https://gitee.com/junma11/COVID-19-CT-Seg-Benchmark.
 
     and put it into `./data/` repository.
 
@@ -160,25 +138,32 @@ finally run `train.py`, the model will saved in `./checkpoints` folder.
 
 ### 2.2. ASSM (Auxiliary semantic supervised module)
 
-### 2.3. AFM (Attention fusion module)
+### 2.3. AFM (At tention fusion module)
 
+## 3. **Experiments**
 
-## 3. Experiments
+We have done a series of qualitative and quantitative experimental comparisons on our proposed method, please refer to the paper ([Link](https://arxiv.org/pdf/2112.10368.pdf)) for the specific experimental results.
 
 ## 4. Visualized Results
 
 <p align="center">
-    <img src="http://dpfan.net/wp-content/uploads/InfectionSeg.png"/> <br />
+    <img src="https://raw.githubusercontent.com/HuHaigen/COVID-19-Lung-Infection-Segentation/main/resources/Fig6.png"/> <br />
     <em> 
-    Figure 4. Visual comparison of lung infection segmentation results.
+    Fig. 6. Visual qualitative comparison of lung infection segmentation results among the different methods.
     </em>
 </p>
 
 <p align="center">
-    <img src="http://dpfan.net/wp-content/uploads/MultiClassInfectionSeg.png"/> <br />
+    <img src="https://raw.githubusercontent.com/HuHaigen/COVID-19-Lung-Infection-Segentation/main/resources/Fig7.png"/> <br />
     <em> 
-    Figure 5. Visual comparison of multi-class lung infection segmentation results, where the red and green labels 
-    indicate the GGO and consolidation, respectively.
+    Fig. 7. Visualization of each stage supervised by <strong>ESM</strong>.
+    </em>
+</p>
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/HuHaigen/COVID-19-Lung-Infection-Segentation/main/resources/Fig8.png"/> <br />
+    <em> 
+    Fig. 8. Visual results of the fusion process based on the proposed <strong>AFM</strong>.
     </em>
 </p>
 
@@ -201,9 +186,8 @@ Please cite our paper if you find the work useful:
 
 ## 6. Acknowledgements
 
-The authors would like to express their appreciation to the referees for their helpful comments and suggestions. This work was supported in part by Zhejiang Provincial Natural Science Foundation of China (Grant nos. LGF20H180002 and GF22F037921), and in part by National Natural Science Foundation of China (Grant nos. 61802347, 61801428 and 61972354), the National Key Research and Development Program of China (Grant no.2018YFB1305202), and the Microsystems Technology Key Laboratory Foundation of China
+The authors would like to express their appreciation to the referees for their helpful comments and suggestions. This work was supported in part by Zhejiang Provincial Natural Science Foundation of China (Grant nos. LGF20H180002 and GF22F037921), and in part by National Natural Science Foundation of China (Grant nos. 61802347, 61801428 and 61972354), the National Key Research and Development Program of China (Grant no.2018YFB1305202), and the Microsystems Technology Key Laboratory Foundation of China.
 
 ## 7. FAQ
-
 
 **[⬆ back to top](#0-preface)**
